@@ -1,0 +1,5 @@
+CPU_Usage (%),Memory_Usage (%),Disk_IO,Network_Traffic,Error_Count,"Target (Normal=0, Abnormal=1)"
+10,30,20,200,0,0
+80,90,150,1000,3,1
+50,70,40,500,1,0
+95,98,200,1200,5,1
