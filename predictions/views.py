@@ -2,6 +2,11 @@
 from django.shortcuts import render, redirect
 from .forms import ServerActivityForm
 from .models import ServerActivity
+from django.utils import timezone
+from datetime import timedelta
+
+import random
+
 import plotly.express as px
 import pandas as pd
 import numpy as np
@@ -85,10 +90,19 @@ def predict_activity(request):
     })
 
 def history(request):
-    # Fetch all activities and predictions
+    # Fetch all activities
     activity_data = ServerActivity.objects.all()
-    return render(request, 'predictions/history.html', {'activity_data': activity_data})
 
+    # Add a random created_at field (timestamp) for each activity
+    for activity in activity_data:
+        # Generate a random timedelta (between 0 and 30 days ago)
+        random_days = random.randint(0, 0)
+        random_time = timezone.now()  + timedelta(days=random_days)
+        
+        # Add a 'created_at' field to each activity
+        activity.created_at = random_time
+
+    return render(request, 'predictions/history.html', {'activity_data': activity_data})
 def reset_database(request):
     # Reset the database by deleting all ServerActivity records
     ServerActivity.objects.all().delete()
